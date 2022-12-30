@@ -15,9 +15,21 @@ use App\Http\Controllers\Api\User\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+Route::controller([AuthController::class])->group(function () {
+    Route::post('/login', 'login');
+    Route::post('/register', 'register');
 });
 
-Route::post('/login',[AuthController::class,'login']);
-Route::post('/register',[AuthController::class,'register']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller([AuthController::class])->group(function () {
+        Route::post('/logout', 'logout');
+        Route::get('/user', 'user');
+    });
+});
+

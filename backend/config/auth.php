@@ -40,6 +40,33 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+//        custome guard
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'user-api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
+
+        'seller' => [
+            'driver' => 'session',
+            'provider' => 'sellers',
+        ],
+        'seller-api' => [
+            'driver' => 'token',
+            'provider' => 'sellers',
+        ],
     ],
 
     /*
@@ -63,6 +90,18 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+//        custome providers
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Auth\Admin::class,
+        ],
+
+        'sellers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Auth\Seller::class,
         ],
 
         // 'users' => [
@@ -89,6 +128,21 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+//        custome password reset
+
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'sellers' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
