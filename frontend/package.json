@@ -9,11 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
+=======
+    "vue": "^3.2.45"
+>>>>>>> origin/main
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "vite": "^4.0.0"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

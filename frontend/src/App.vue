@@ -27,12 +27,21 @@
         <div class="header-content">
           <div class="header-media-group">
             <button class="header-user">
+<<<<<<< HEAD
               <img src="@/assets/@/assets/images/menu.png" alt="user" /></button
             ><a href="index.html"><img src="@/assets/images/logo.png" alt="logo" /></a
           ><button class="header-src"><i class="fas fa-search"></i></button>
           </div>
           <a href="index.html" class="header-logo"
           ><img src="@/assets/images/logo.png" alt="logo" /></a
+=======
+              <img src="./assets/./assets/images/menu.png" alt="user" /></button
+            ><a href="index.html"><img src="./assets/images/logo.png" alt="logo" /></a
+          ><button class="header-src"><i class="fas fa-search"></i></button>
+          </div>
+          <a href="index.html" class="header-logo"
+          ><img src="./assets/images/logo.png" alt="logo" /></a
+>>>>>>> origin/main
           >
 
           <form class="header-form">
@@ -361,7 +370,11 @@
       <ul class="cart-list">
         <li class="cart-item">
           <div class="cart-media">
+<<<<<<< HEAD
             <a href="#"><img src="@/assets/images/product/01.jpg" alt="product" /></a
+=======
+            <a href="#"><img src="./assets/images/product/01.jpg" alt="product" /></a
+>>>>>>> origin/main
             ><button class="cart-delete">
             <i class="far fa-trash-alt"></i>
           </button>
@@ -391,7 +404,11 @@
         </li>
         <li class="cart-item">
           <div class="cart-media">
+<<<<<<< HEAD
             <a href="#"><img src="@/assets/images/product/02.jpg" alt="product" /></a
+=======
+            <a href="#"><img src="./assets/images/product/02.jpg" alt="product" /></a
+>>>>>>> origin/main
             ><button class="cart-delete">
             <i class="far fa-trash-alt"></i>
           </button>
@@ -421,7 +438,11 @@
         </li>
         <li class="cart-item">
           <div class="cart-media">
+<<<<<<< HEAD
             <a href="#"><img src="@/assets/images/product/03.jpg" alt="product" /></a
+=======
+            <a href="#"><img src="./assets/images/product/03.jpg" alt="product" /></a
+>>>>>>> origin/main
             ><button class="cart-delete">
             <i class="far fa-trash-alt"></i>
           </button>
@@ -451,7 +472,11 @@
         </li>
         <li class="cart-item">
           <div class="cart-media">
+<<<<<<< HEAD
             <a href="#"><img src="@/assets/images/product/04.jpg" alt="product" /></a
+=======
+            <a href="#"><img src="./assets/images/product/04.jpg" alt="product" /></a
+>>>>>>> origin/main
             ><button class="cart-delete">
             <i class="far fa-trash-alt"></i>
           </button>
@@ -481,7 +506,11 @@
         </li>
         <li class="cart-item">
           <div class="cart-media">
+<<<<<<< HEAD
             <a href="#"><img src="@/assets/images/product/05.jpg" alt="product" /></a
+=======
+            <a href="#"><img src="./assets/images/product/05.jpg" alt="product" /></a
+>>>>>>> origin/main
             ><button class="cart-delete">
             <i class="far fa-trash-alt"></i>
           </button>
@@ -527,7 +556,11 @@
     </aside>
     <aside class="nav-sidebar">
       <div class="nav-header">
+<<<<<<< HEAD
         <a href="#"><img src="@/assets/images/logo.png" alt="logo" /></a
+=======
+        <a href="#"><img src="./assets/images/logo.png" alt="logo" /></a
+>>>>>>> origin/main
         ><button class="nav-close"><i class="icofont-close"></i></button>
       </div>
       <div class="nav-content">
@@ -587,6 +620,7 @@
                     ><label class="view-label off">-10%</label>
                   </div>
                   <ul class="preview-slider slider-arrow">
+<<<<<<< HEAD
                     <li><img src="@/assets/images/product/01.jpg" alt="product" /></li>
                     <li><img src="@/assets/images/product/01.jpg" alt="product" /></li>
                     <li><img src="@/assets/images/product/01.jpg" alt="product" /></li>
@@ -603,6 +637,24 @@
                     <li><img src="@/assets/images/product/01.jpg" alt="product" /></li>
                     <li><img src="@/assets/images/product/01.jpg" alt="product" /></li>
                     <li><img src="@/assets/images/product/01.jpg" alt="product" /></li>
+=======
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                  </ul>
+                  <ul class="thumb-slider">
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+                    <li><img src="./assets/images/product/01.jpg" alt="product" /></li>
+>>>>>>> origin/main
                   </ul>
                 </div>
               </div>
@@ -707,6 +759,7 @@
 
 <!--main part-->
 
+<<<<<<< HEAD
 <router-view> </router-view>
 
 
@@ -777,6 +830,12 @@
         </div>
       </div>
     </section>
+=======
+
+
+
+
+>>>>>>> origin/main
 
     <footer class="footer-part">
       <div class="container">
@@ -784,7 +843,11 @@
           <div class="col-sm-6 col-xl-3">
             <div class="footer-widget">
               <a class="footer-logo" href="#"
+<<<<<<< HEAD
               ><img src="@/assets/images/logo.png" alt="logo"
+=======
+              ><img src="./assets/images/logo.png" alt="logo"
+>>>>>>> origin/main
               /></a>
               <p class="footer-desc">
                 Adipisci asperiores ipsum ipsa repellat consequatur repudiandae
@@ -854,8 +917,13 @@
               </p>
               <div class="footer-app">
                 <a href="#"
+<<<<<<< HEAD
                 ><img src="@/assets/images/google-store.png" alt="google" /></a
                 ><a href="#"><img src="@/assets/images/app-store.png" alt="app" /></a>
+=======
+                ><img src="./assets/images/google-store.png" alt="google" /></a
+                ><a href="#"><img src="./assets/images/app-store.png" alt="app" /></a>
+>>>>>>> origin/main
               </div>
             </div>
           </div>
@@ -873,6 +941,7 @@
               </p>
               <div class="footer-card">
                 <a href="#"
+<<<<<<< HEAD
                 ><img src="@/assets/images/payment/jpg/01.jpg" alt="payment" /></a
                 ><a href="#"
               ><img src="@/assets/images/payment/jpg/02.jpg" alt="payment" /></a
@@ -880,6 +949,15 @@
               ><img src="@/assets/images/payment/jpg/03.jpg" alt="payment" /></a
               ><a href="#"
               ><img src="@/assets/images/payment/jpg/04.jpg" alt="payment"
+=======
+                ><img src="./assets/images/payment/jpg/01.jpg" alt="payment" /></a
+                ><a href="#"
+              ><img src="./assets/images/payment/jpg/02.jpg" alt="payment" /></a
+              ><a href="#"
+              ><img src="./assets/images/payment/jpg/03.jpg" alt="payment" /></a
+              ><a href="#"
+              ><img src="./assets/images/payment/jpg/04.jpg" alt="payment"
+>>>>>>> origin/main
               /></a>
               </div>
             </div>
