@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import Index from "../views/pages/index.vue";
+import {Index, Shop,Seller,SellerStore} from "@/views/pages/index.js";
 import {UserLogin, UserRegister} from "@/views/auth/index.js";
 
 
@@ -7,6 +7,12 @@ const routes = [
     {path: '/', name: '/', component: Index, meta: { title: 'Home' }},
     {path: '/auth/login', name: "user.login", component: UserLogin, meta: { title: 'User Login' }},
     {path: '/auth/register', name: "user.register", component: UserRegister, meta: { title: 'User Register' }},
+
+   //user route end=====
+
+    {path: '/shop', name: "shop.page", component: Shop, meta: { title: 'Shop' }},
+    {path: '/seller-list', name: "seller.page", component: Seller, meta: { title: 'Seller' }},
+    {path: '/seller-store', name: "seller.store", component: SellerStore, meta: { title: 'Seller Store' }},
 
 ];
 const router = createRouter({
