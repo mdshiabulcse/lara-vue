@@ -198,9 +198,9 @@ const couponBtn = () => {
             <span>apply</span>
           </button>
         </form>
-        <a class="cart-checkout-btn" href="checkout.html"
+        <router-link :to="{name:'checkout.page'}" class="cart-checkout-btn"
         ><span class="checkout-label">Proceed to Checkout</span
-        ><span class="checkout-price">$369.78</span></a
+        ><span class="checkout-price">$369.78</span></router-link
         >
       </div>
     </aside>
