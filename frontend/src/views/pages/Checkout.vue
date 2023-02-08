@@ -1,3 +1,9 @@
+<script setup>
+const couponBtn = () => {
+  $('.coupon-btn').hide(), $(".coupon-form").css("display", "flex");
+
+}
+</script>
 <template>
   <div>
     <section class="inner-section single-banner">
@@ -136,7 +142,7 @@
                   </table>
                 </div>
                 <div class="chekout-coupon">
-                  <button class="coupon-btn">Do you have a coupon code?</button>
+                  <button class="coupon-btn" @click="couponBtn">Do you have a coupon code?</button>
                   <form class="coupon-form">
                     <input
                         type="text"
