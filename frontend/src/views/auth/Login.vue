@@ -1,3 +1,24 @@
+<script setup>
+  import {useAuth} from "@/stores/auth.js";
+  // import {storeToRefs} from "pinia";
+  //
+  const auth=useAuth();
+  //
+  // const {count,doubleCount}=storeToRefs(store)
+  // const clickME=()=>{
+  //   store.increment()
+  // }
+
+  import {reactive} from "vue";
+
+  const form=reactive({
+    phone:"",
+    password:"",
+  });
+  const onSubmit= async ()=>{
+   await auth.login(form);
+  }
+</script>
 <template>
   <div>
     <div>
@@ -11,13 +32,14 @@
                   <p>Use your credentials to access</p>
                 </div>
                 <div class="user-form-group" id="axiosForm">
-                  <form class="user-form">
+                  <form class="user-form" @submit.prevent="onSubmit">
                     <!--v-if-->
                     <div class="form-group">
                       <input
                           type="text"
                           class="form-control"
                           placeholder="phone no"
+                          v-model="form.phone"
                       /><!--v-if-->
                     </div>
                     <div class="form-group">
@@ -25,6 +47,7 @@
                           type="password"
                           class="form-control"
                           placeholder="password"
+                          v-model="form.password"
                       /><span class="view-password"
                     ><i class="fas text-success fa-eye"></i></span
                     ><!--v-if-->
