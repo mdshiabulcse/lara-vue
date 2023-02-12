@@ -1,20 +1,21 @@
 <script setup>
   import {useAuth} from "@/stores/auth.js";
-  // import {storeToRefs} from "pinia";
-  //
-  const auth=useAuth();
-  //
-  // const {count,doubleCount}=storeToRefs(store)
-  // const clickME=()=>{
-  //   store.increment()
-  // }
+  import {storeToRefs} from "pinia";
 
-  import {reactive} from "vue";
+  const auth=useAuth();
+  const {errors}=storeToRefs(auth)
+
+  import {reactive, ref} from "vue";
 
   const form=reactive({
     phone:"",
     password:"",
   });
+
+  const showPassword=ref(false);
+  const toggleShow=()=>{
+    showPassword.value = !showPassword.value
+  }
   const onSubmit= async ()=>{
    await auth.login(form);
   }
@@ -29,6 +30,7 @@
               <div class="user-form-card">
                 <div class="user-form-title">
                   <h2>Customer Login</h2>
+                  {{errors}}
                   <p>Use your credentials to access</p>
                 </div>
                 <div class="user-form-group" id="axiosForm">
@@ -37,19 +39,29 @@
                     <div class="form-group">
                       <input
                           type="text"
-                          class="form-control"
+                          class="form-control "
                           placeholder="phone no"
                           v-model="form.phone"
+                          :class="{'is-invalid':errors.phone}"
                       /><!--v-if-->
+                      <span class="text-danger" v-if="errors.phone">{{errors.phone[0]}}</span>
                     </div>
                     <div class="form-group">
                       <input
-                          type="password"
+                          :type="showPassword ? 'text':'password'"
                           class="form-control"
                           placeholder="password"
                           v-model="form.password"
-                      /><span class="view-password"
-                    ><i class="fas text-success fa-eye"></i></span
+                          :class="{'is-invalid':errors.password}"
+                      />
+                      <span class="text-danger" v-if="errors.password">{{errors.password[0]}}</span>
+                      <span class="view-password" @click="toggleShow"
+                    ><i class="fas text-success fa-eye"
+                    :class="{
+                      'fa-eye-slash':showPassword,
+                      'fa-eye':!showPassword,
+                    }"
+                    ></i></span
                     ><!--v-if-->
                     </div>
                     <div class="form-check mb-3">
