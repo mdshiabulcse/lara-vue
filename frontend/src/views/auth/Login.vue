@@ -4,6 +4,8 @@
   import {reactive, ref} from "vue";
   import { Field, Form, ErrorMessage } from 'vee-validate';
   import * as yup from 'yup';
+  import { useRouter} from 'vue-router';
+  import { ElNotification } from 'element-plus';
 
   const auth=useAuth();
   const {errors}=storeToRefs(auth)
@@ -12,7 +14,7 @@
   //   phone:"",
   //   password:"",
   // });
-
+  const router=useRouter();
   const showPassword=ref(false);
   const toggleShow=()=>{
     showPassword.value = !showPassword.value
@@ -20,7 +22,13 @@
   const onSubmit= async (values, {setErrors})=>{
    const res= await auth.login(values);
    if (res.data){
-     alert('Login Success')
+     router.push({ name:'/' });
+     ElNotification({
+       title: 'Success',
+       message: 'Login Success',
+       type: 'success',
+       position: 'top-left',
+     })
    }else{
      setErrors(res);
    }
@@ -31,7 +39,7 @@
 
   const schema = yup.object({
     phone: yup.string().required('Phone field is required'),
-    password: yup.string().required().min(8),
+    password: yup.string().required(),
   });
 
 </script>
