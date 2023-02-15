@@ -3,16 +3,17 @@ import {Index, Shop, SingleProduct,Checkout} from "@/views/pages/index.js";
 import {Seller,SellerStore,SellerApply} from "@/views/pages/seller/index.js";
 import {UserLogin, UserRegister} from "@/views/auth/index.js";
 import {MyOrderList, MyProfile, MyWishlist} from "@/views/user/index.js";
+import {useAuth} from "@/stores/index.js";
 
 
 const routes = [
     {path: '/', name: '/', component: Index, meta: { title: 'Home' }},
-    {path: '/auth/login', name: "user.login", component: UserLogin, meta: { title: 'User Login' }},
-    {path: '/auth/register', name: "user.register", component: UserRegister, meta: { title: 'User Register' }},
+    {path: '/auth/login', name: "user.login", component: UserLogin, meta: { title: 'User Login' ,guest:true}},
+    {path: '/auth/register', name: "user.register", component: UserRegister, meta: { title: 'User Register',guest: true }},
 
-    {path: '/user-orders', name: "user.orders", component: MyOrderList, meta: { title: 'User Orders' }},
-    {path: '/user-profile', name: "user.profile", component: MyProfile, meta: { title: 'User Profile' }},
-    {path: '/user-wishlist', name: "user.wishlist", component: MyWishlist, meta: { title: 'User Wishlist' }},
+    {path: '/user-orders', name: "user.orders", component: MyOrderList, meta: { title: 'User Orders',requiresAuth: true }},
+    {path: '/user-profile', name: "user.profile", component: MyProfile, meta: { title: 'User Profile' ,requiresAuth: true}},
+    {path: '/user-wishlist', name: "user.wishlist", component: MyWishlist, meta: { title: 'User Wishlist' ,requiresAuth: true}},
 
    //user route end=====
 
@@ -30,8 +31,26 @@ const router = createRouter({
 })
 
 const DEFAULT_TITLE = '404';
-router.beforeEach((to,) => {
+router.beforeEach((to,from,next) => {
     document.title = to.meta.title || DEFAULT_TITLE;
+    const loggedIn =useAuth();
+    if (to.matched.some((record)=>record.meta.requiresAuth)){
+        if (!loggedIn.user.meta){
+            next({name:"user.login"});
+        }else {
+            next();
+        }
+    }else if (to.matched.some((record)=>record.meta.guest)){
+        if (loggedIn.user.meta){
+            next({name:"user.profile"});
+        }else {
+            next();
+        }
+    }
+    else {
+        next();
+    }
+
 
 });
 export default router;

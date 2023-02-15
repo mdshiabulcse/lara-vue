@@ -2,7 +2,7 @@
   import {useAuth} from "@/stores/auth.js";
   import {storeToRefs} from "pinia";
   import {reactive, ref} from "vue";
-  import { Field, Form, ErrorMessage } from 'vee-validate';
+  import { Field, Form } from 'vee-validate';
   import * as yup from 'yup';
   import { useRouter} from 'vue-router';
   import { ElNotification } from 'element-plus';
@@ -67,8 +67,7 @@
                           :class="{'is-invalid':errors.phone}"
 
                       /><!--v-if-->
-<!--                      <ErrorMessage name="phone" class="text-danger"/>-->
-                      <span class="text-danger" v-if="errors.phone">{{errors.phone}}</span>
+                      <span class="text-danger" >{{errors.phone}}</span>
                     </div>
                     <div class="form-group">
                       <Field
@@ -78,8 +77,7 @@
                           placeholder="password"
                           :class="{'is-invalid':errors.password}"
                       />
-<!--                      <ErrorMessage name="password" class="text-danger" />-->
-                      <span class="text-danger" v-if="errors.password">{{errors.password}}</span>
+                      <span class="text-danger" >{{errors.password}}</span>
                       <span class="view-password" @click="toggleShow"
                     ><i class="fas text-success fa-eye"
                     :class="{
