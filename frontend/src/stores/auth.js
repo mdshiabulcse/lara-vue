@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import axios from "axios";
 import axiosInstance from "@/services/axiosService.js";
 
 export const useAuth = defineStore("auth", {
@@ -9,20 +8,18 @@ export const useAuth = defineStore("auth", {
     }),
     persist:{
         paths:["user"],
+
     },
     actions: {
         async login(formData) {
-
-
             try {
                 const  res = await axiosInstance.post(
                     "/user/login",
                     formData
                 );
                 if(res.status === 200){
-                    // console.log(res.data);
                     console.log(res.data);
-                    this.user=res.data;
+                    this.user= res.data;
                     return new Promise((resolve)=>{
                         resolve(res.data);
                     })
@@ -39,10 +36,8 @@ export const useAuth = defineStore("auth", {
         },
         async logout(){
             try {
-                const  res = await axiosInstance.post(
-                    "/user/logout",
-                    formData
-                );
+                const  res = await axiosInstance.post("/user/logout");
+                console.log(res);
             }catch (error){
 
             }

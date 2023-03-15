@@ -1,5 +1,5 @@
 <script setup>
-import {useAuth} from "@/stores/index.js";
+import {useAuth} from "@/stores";
 import {storeToRefs} from "pinia";
 const auth=useAuth();
 const {user}=storeToRefs(auth);

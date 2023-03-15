@@ -3,7 +3,7 @@ import {Index, Shop, SingleProduct,Checkout} from "@/views/pages/index.js";
 import {Seller,SellerStore,SellerApply} from "@/views/pages/seller/index.js";
 import {UserLogin, UserRegister} from "@/views/auth/index.js";
 import {MyOrderList, MyProfile, MyWishlist} from "@/views/user/index.js";
-import {useAuth} from "@/stores/index.js";
+import {useAuth} from "@/stores";
 
 
 const routes = [
@@ -34,6 +34,9 @@ const DEFAULT_TITLE = '404';
 router.beforeEach((to,from,next) => {
     document.title = to.meta.title || DEFAULT_TITLE;
     const loggedIn =useAuth();
+    // console.log("loggedIn.data")
+    // console.log(loggedIn.user.meta)
+    // console.log("loggedIn.data")
     if (to.matched.some((record)=>record.meta.requiresAuth)){
         if (!loggedIn.user.meta){
             next({name:"user.login"});
