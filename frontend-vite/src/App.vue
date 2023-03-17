@@ -1,5 +1,13 @@
 <script setup>
-  import {HeaderPart,NavBar,CartSideBar,MobileMenu,LoginModal,NewsLetter,FooterPart} from "@/components/index";
+  import {
+    HeaderPart,
+    NavBar,
+    CartSideBar,
+    MobileMenu,
+    LoginModal,
+    NewsLetter,
+    FooterPart
+  } from "@/components/index";
 </script>
 <template>
   <div>
