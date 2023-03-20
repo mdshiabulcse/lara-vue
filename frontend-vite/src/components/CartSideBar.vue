@@ -1,3 +1,13 @@
+<script setup>
+  const cartClose =() =>{
+      $("body").css("overflow", "inherit"),
+          $(".cart-sidebar").removeClass("active"),
+          $(".backdrop").fadeOut();
+  }
+  const couponBtn=()=>{
+      $('.coupon-btn').hide(), $(".coupon-form").css("display", "flex");
+  }
+</script>
 <template>
   <div>
     <aside class="cart-sidebar">
@@ -5,7 +15,7 @@
         <div class="cart-total">
           <i class="fas fa-shopping-basket"></i><span>total item (5)</span>
         </div>
-        <button class="cart-close"><i class="icofont-close"></i></button>
+        <button class="cart-close" @click="cartClose"><i class="icofont-close"></i></button>
       </div>
       <ul class="cart-list">
         <li class="cart-item">
@@ -160,7 +170,7 @@
         </li>
       </ul>
       <div class="cart-footer">
-        <button class="coupon-btn">Do you have a coupon code?</button>
+        <button class="coupon-btn" @click="couponBtn">Do you have a coupon code?</button>
         <form class="coupon-form">
           <input type="text" placeholder="Enter your coupon code" /><button
             type="submit"

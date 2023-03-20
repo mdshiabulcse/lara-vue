@@ -1,3 +1,22 @@
+<script setup>
+  function menuClose(){
+          $("body").css("overflow", "inherit"),
+              $(".nav-sidebar").removeClass("active"),
+              $(".backdrop").fadeOut();
+  }
+  function cartBtn(){
+      $("body").css("overflow", "hidden"), $(".cart-sidebar").addClass("active");
+  }
+  function cateBtn(){
+        $(".category-sidebar").addClass("active");
+
+  }
+  function cateClose(){
+      $("body").css("overflow", "inherit"),
+          $(".category-sidebar").removeClass("active"),
+          $(".backdrop").fadeOut();
+  }
+</script>
 <template>
   <div>
     <aside class="category-sidebar">
@@ -5,7 +24,7 @@
         <h4 class="category-title">
           <i class="fas fa-align-left"></i><span>categories</span>
         </h4>
-        <button class="category-close"><i class="icofont-close"></i></button>
+        <button class="category-close" @click="cateClose"><i class="icofont-close"></i></button>
       </div>
       <ul class="category-list">
         <li class="category-item">
@@ -136,7 +155,7 @@
     <aside class="nav-sidebar">
       <div class="nav-header">
         <a href="#"><img src="@/assets/images/logo.png" alt="logo" /></a
-        ><button class="nav-close"><i class="icofont-close"></i></button>
+        ><button class="nav-close" @click="menuClose"><i class="icofont-close"></i></button>
       </div>
       <div class="nav-content">
         <ul class="nav-list">
@@ -173,8 +192,8 @@
     <!-- mobile footer menu  -->
     <div class="mobile-menu">
       <a href="/" class="active router-link-exact-active" title="Home Page" aria-current="page"><i class="fas fa-home"></i><span>Home</span></a>
-      <button class="cate-btn" title="Category List"><i class="fas fa-list"></i><span>category</span></button>
-      <button class="cart-btn" title="Cartlist"><i class="fas fa-shopping-basket"></i><span>Cart</span><sup>2</sup>
+      <button class="cate-btn" title="Category List" @click="cateBtn"><i class="fas fa-list"></i><span>category</span></button>
+      <button class="cart-btn" title="Cartlist" @click="cartBtn"><i class="fas fa-shopping-basket"></i><span>Cart</span><sup>2</sup>
       </button>
       <a href="/my-wishist" class="" title="Wishlist"><i class="fas fa-bell"></i><span>Notifications</span><sup>0</sup></a>
       <a href="/user/profile" class="" title="My Account"><i class="fas fa-user"></i><span>My Account</span></a></div>
