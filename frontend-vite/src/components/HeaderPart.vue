@@ -40,11 +40,11 @@
           <div class="header-media-group">
             <button class="header-user" @click="menu">
               <img src="@/assets/images/menu.png" alt="user" /></button
-            ><a href="index.html"><img src="@/assets/images/logo.png" alt="logo" /></a
+            ><router-link :to="{name:'index'}"><img src="@/assets/images/logo.png" alt="logo" /></router-link
           ><button class="header-src" @click="search"><i class="fas fa-search"></i></button>
           </div>
-          <a href="index.html" class="header-logo"
-          ><img src="@/assets/images/logo.png" alt="logo" /></a
+          <router-link :to="{name:'index'}" class="header-logo"
+          ><img src="@/assets/images/logo.png" alt="logo" /></router-link
           >
 
           <form class="header-form">
@@ -52,12 +52,12 @@
             <i class="fas fa-search"></i>
           </button>
           </form>
-          <div class="header-widget-group">
+          <div class="header-widget-group  hover-nav">
             <li class="nav-item dropdown ">
               <a class="nav-link header-widget" href="#" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a href="login.html" class="dropdown-item"> Login</a></li>
-                <li><a href="register.html" class="dropdown-item"> Register</a></li>
+                <li><router-link :to="{name:'user.login'}" class="dropdown-item"> Login</router-link></li>
+                <li><router-link :to="{name:'user.register'}" class="dropdown-item"> Register</router-link></li>
               </ul>
             </li>
 
@@ -74,3 +74,18 @@
     </header>
   </div>
 </template>
+
+<style>
+.hover-nav .nav-item .dropdown-menu {
+  display: none;
+  margin-top: 0;
+}
+
+.hover-nav .nav-item:hover .nav-link {
+
+}
+
+.hover-nav .nav-item:hover .nav-link {
+  display: block;
+}
+</style>

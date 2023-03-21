@@ -7,7 +7,7 @@
           <div class="navbar-content">
             <ul class="navbar-list">
               <li class="navbar-item dropdown">
-                <a class="navbar-link" href="#">home</a>
+                <router-link class="navbar-link" :to="{name:'index'}">home</router-link>
 
               </li>
 

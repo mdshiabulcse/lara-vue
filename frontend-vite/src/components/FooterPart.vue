@@ -5,9 +5,9 @@
         <div class="row">
           <div class="col-sm-6 col-xl-3">
             <div class="footer-widget">
-              <a class="footer-logo" href="#"
+              <router-link  class="footer-logo" :to="{name:'index'}"
               ><img src="@/assets/images/logo.png" alt="logo"
-              /></a>
+              /></router-link>
               <p class="footer-desc">
                 Adipisci asperiores ipsum ipsa repellat consequatur repudiandae
                 quisquam assumenda dolor perspiciatis sit ipsum dolor amet.
