@@ -1,10 +1,19 @@
 <script setup>
-import {useCounter} from "@/stores/counter.js";
-import {storeToRefs} from "pinia";
-const store = useCounter();
-const{count,doubleCount }=storeToRefs(store);
-const clickMe=()=>{
-  store.increment();
+import {useAuth} from "@/stores/auth.js";
+import {reactive} from "@vue/reactivity";
+// import {storeToRefs} from "pinia";
+const auth = useAuth();
+// const{count,doubleCount }=storeToRefs(store);
+// const clickMe=()=>{
+//   store.increment();
+// }
+
+const form=reactive({
+  phone:"",
+  password:"",
+});
+const onSubmit=async ()=>{
+ await auth.login(form)
 }
 </script>
 <template>
@@ -19,13 +28,14 @@ const clickMe=()=>{
                 <p>Use your credentials to access</p>
               </div>
               <div class="user-form-group" id="axiosForm">
-                <form class="user-form">
+                <form class="user-form" @submit.prevent="onSubmit">
                   <!--v-if-->
                   <div class="form-group">
                     <input
                         type="text"
                         class="form-control"
                         placeholder="phone no"
+                        v-model="form.phone"
                     /><!--v-if-->
                   </div>
                   <div class="form-group">
@@ -33,6 +43,7 @@ const clickMe=()=>{
                         type="password"
                         class="form-control"
                         placeholder="password"
+                        v-model="form.password"
                     /><span class="view-password"
                   ><i class="fas text-success fa-eye"></i></span
                   ><!--v-if-->
@@ -49,9 +60,6 @@ const clickMe=()=>{
                   </div>
                   <div class="form-button">
                     <button type="submit">login</button>
-                    <button type="submit" class="mt-5" @click.prevent="clickMe">count</button>
-                    <button type="submit" class="mt-5" >{{ count }}</button>
-                    <p>{{doubleCount }}</p>
                   </div>
                 </form>
               </div>
