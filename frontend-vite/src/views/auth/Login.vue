@@ -1,3 +1,12 @@
+<script setup>
+import {useCounter} from "@/stores/counter.js";
+import {storeToRefs} from "pinia";
+const store = useCounter();
+const{count,doubleCount }=storeToRefs(store);
+const clickMe=()=>{
+  store.increment();
+}
+</script>
 <template>
   <div>
     <section class="user-form-part">
@@ -40,6 +49,9 @@
                   </div>
                   <div class="form-button">
                     <button type="submit">login</button>
+                    <button type="submit" class="mt-5" @click.prevent="clickMe">count</button>
+                    <button type="submit" class="mt-5" >{{ count }}</button>
+                    <p>{{doubleCount }}</p>
                   </div>
                 </form>
               </div>
