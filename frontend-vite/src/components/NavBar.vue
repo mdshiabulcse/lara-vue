@@ -142,11 +142,11 @@
               </li>
 
               <li class="navbar-item dropdown-megamenu">
-                <a class="navbar-link " href="#">shop</a>
+                <router-link class="navbar-link " :to="{name:'shop.page'}">shop</router-link>
               </li>
 
               <li class="navbar-item dropdown-megamenu">
-                <a class="navbar-link " href="#">Seller List</a>
+                <router-link class="navbar-link " :to="{name:'seller.list'}">Seller List</router-link>
 
               </li>
 

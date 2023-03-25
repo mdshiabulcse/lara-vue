@@ -4,9 +4,7 @@
           $(".cart-sidebar").removeClass("active"),
           $(".backdrop").fadeOut();
   }
-  const couponBtn=()=>{
-      $('.coupon-btn').hide(), $(".coupon-form").css("display", "flex");
-  }
+
 </script>
 <template>
   <div>
@@ -170,17 +168,9 @@
         </li>
       </ul>
       <div class="cart-footer">
-        <button class="coupon-btn" @click="couponBtn">Do you have a coupon code?</button>
-        <form class="coupon-form">
-          <input type="text" placeholder="Enter your coupon code" /><button
-            type="submit"
-        >
-          <span>apply</span>
-        </button>
-        </form>
-        <a class="cart-checkout-btn" href="checkout.html"
+        <router-link class="cart-checkout-btn" :to="{name:'checkout.page'}"
         ><span class="checkout-label">Proceed to Checkout</span
-        ><span class="checkout-price">$369.78</span></a
+        ><span class="checkout-price">$369.78</span></router-link
         >
       </div>
     </aside>
