@@ -1,6 +1,7 @@
 <script setup>
 import {useAuth} from "@/stores/auth.js";
-import {reactive} from "@vue/reactivity";
+import {reactive,ref} from "@vue/reactivity";
+// import {ref} from "vue";
 // import {storeToRefs} from "pinia";
 const auth = useAuth();
 // const{count,doubleCount }=storeToRefs(store);
@@ -12,6 +13,10 @@ const form=reactive({
   phone:"",
   password:"",
 });
+const showPassword=ref(false)
+const toggleShow=()=>{
+  showPassword.value=!showPassword.value;
+}
 const onSubmit=async ()=>{
  await auth.login(form)
 }
@@ -40,12 +45,18 @@ const onSubmit=async ()=>{
                   </div>
                   <div class="form-group">
                     <input
-                        type="password"
+                        :type="showPassword ?'text':'password'"
                         class="form-control"
                         placeholder="password"
                         v-model="form.password"
-                    /><span class="view-password"
-                  ><i class="fas text-success fa-eye"></i></span
+                    /><span class="view-password" @click="toggleShow"
+                  ><i
+                      class="fas text-success fa-eye "
+                      :class="{
+                    'fa-eye-slash':showPassword,
+                    'fa-eye':!showPassword
+                  } "
+                  ></i></span
                   ><!--v-if-->
                   </div>
                   <div class="form-check mb-3">
