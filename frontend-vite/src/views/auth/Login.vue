@@ -1,22 +1,31 @@
 <script setup>
 import {useAuth} from "@/stores/auth.js";
-import {reactive,ref} from "@vue/reactivity";
+import {reactive,ref} from "vue";
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+const schema = yup.object({
+  phone: yup.string().required("Phone Field is Required") ,
+  password: yup.string().required("Password Field is Required").min(8),
+});
 // import {ref} from "vue";
 import {storeToRefs} from "pinia";
 const auth = useAuth();
 const{errors }=storeToRefs(auth);
-
-const form=reactive({
-  phone:"",
-  password:"",
-});
 const showPassword=ref(false)
 const toggleShow=()=>{
   showPassword.value=!showPassword.value;
 }
-const onSubmit=async ()=>{
- await auth.login(form)
+const onSubmit=async (values, {setErrors})=>{
+ const res = await auth.login(values)
+  if(res.data){
+    alert('login success')
+  }else{
+    setErrors(res)
+  }
+  console.log(values)
+
 }
+
 </script>
 <template>
   <div>
@@ -30,24 +39,24 @@ const onSubmit=async ()=>{
                 <p>Use your credentials to access</p>
               </div>
               <div class="user-form-group" id="axiosForm">
-                <form class="user-form" @submit.prevent="onSubmit">
+                <Form class="user-form" @submit="onSubmit" :validation-schema="schema" v-slot="{errors,isSubmitting}">
                   <!--v-if-->
                   <div class="form-group">
-                    <input
+                    <Field
+                        name="phone"
                         type="text"
                         class="form-control"
                         placeholder="phone no"
-                        v-model="form.phone"
                         :class="{'is-invalid':errors.phone}"
                     /><!--v-if-->
-                    <span class="text-danger" v-if="errors.phone">{{errors.phone[0]}}</span>
+                    <span class="text-danger" v-if="errors.phone">{{errors.phone}}</span>
                   </div>
                   <div class="form-group">
-                    <input
+                    <Field
+                        name="password"
                         :type="showPassword ?'text':'password'"
                         class="form-control "
                         placeholder="password"
-                        v-model="form.password"
                         :class="{'is-invalid':errors.password}"
                     /><span class="view-password" @click="toggleShow"
                   ><i
@@ -58,7 +67,7 @@ const onSubmit=async ()=>{
                   } "
                   ></i></span
                   ><!--v-if-->
-                    <span class="text-danger" v-if="errors.password">{{errors.password[0]}}</span>
+                    <span class="text-danger" v-if="errors.password">{{errors.password}}</span>
                   </div>
                   <div class="form-check mb-3">
                     <input
@@ -71,9 +80,10 @@ const onSubmit=async ()=>{
                   >
                   </div>
                   <div class="form-button">
-                    <button type="submit">login</button>
+                    <button type="submit" :disabled="isSubmitting">login<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span></button>
+
                   </div>
-                </form>
+                </Form>
               </div>
             </div>
             <div class="user-form-remind">
