@@ -2,12 +2,9 @@
 import {useAuth} from "@/stores/auth.js";
 import {reactive,ref} from "@vue/reactivity";
 // import {ref} from "vue";
-// import {storeToRefs} from "pinia";
+import {storeToRefs} from "pinia";
 const auth = useAuth();
-// const{count,doubleCount }=storeToRefs(store);
-// const clickMe=()=>{
-//   store.increment();
-// }
+const{errors }=storeToRefs(auth);
 
 const form=reactive({
   phone:"",
@@ -41,14 +38,17 @@ const onSubmit=async ()=>{
                         class="form-control"
                         placeholder="phone no"
                         v-model="form.phone"
+                        :class="{'is-invalid':errors.phone}"
                     /><!--v-if-->
+                    <span class="text-danger" v-if="errors.phone">{{errors.phone[0]}}</span>
                   </div>
                   <div class="form-group">
                     <input
                         :type="showPassword ?'text':'password'"
-                        class="form-control"
+                        class="form-control "
                         placeholder="password"
                         v-model="form.password"
+                        :class="{'is-invalid':errors.password}"
                     /><span class="view-password" @click="toggleShow"
                   ><i
                       class="fas text-success fa-eye "
@@ -58,6 +58,7 @@ const onSubmit=async ()=>{
                   } "
                   ></i></span
                   ><!--v-if-->
+                    <span class="text-danger" v-if="errors.password">{{errors.password[0]}}</span>
                   </div>
                   <div class="form-check mb-3">
                     <input

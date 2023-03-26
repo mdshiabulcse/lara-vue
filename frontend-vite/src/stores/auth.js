@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from "axios";
 export const useAuth = defineStore('auth', {
-
+    state: () => ({ errors: {} }),
     actions: {
         async login(fromData) {
             try {
@@ -12,6 +12,9 @@ export const useAuth = defineStore('auth', {
                     console.log(res.data)
                 }
             }catch (error){
+                if (error.response.data){
+                    this.errors=error.response.data.errors;
+                }
                 console.log(error)
             }
         }
