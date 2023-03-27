@@ -2,15 +2,19 @@
 import {useAuth} from "@/stores/auth.js";
 import {reactive,ref} from "vue";
 import { Field, Form, ErrorMessage } from 'vee-validate';
+import { useRouter } from 'vue-router';
+import { ElNotification } from 'element-plus'
 import * as yup from 'yup';
 const schema = yup.object({
   phone: yup.string().required("Phone Field is Required") ,
-  password: yup.string().required("Password Field is Required").min(8),
+  password: yup.string().required("Password Field is Required"),
 });
 // import {ref} from "vue";
 import {storeToRefs} from "pinia";
 const auth = useAuth();
 const{errors }=storeToRefs(auth);
+
+const router = useRouter()
 const showPassword=ref(false)
 const toggleShow=()=>{
   showPassword.value=!showPassword.value;
@@ -18,7 +22,13 @@ const toggleShow=()=>{
 const onSubmit=async (values, {setErrors})=>{
  const res = await auth.login(values)
   if(res.data){
-    alert('login success')
+   router.push({name:'index'});
+    ElNotification({
+      title: 'Success',
+      message: 'Login Success',
+      type: 'success',
+      position: 'top-left',
+    })
   }else{
     setErrors(res)
   }
