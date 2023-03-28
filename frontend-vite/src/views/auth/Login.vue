@@ -59,7 +59,7 @@ const onSubmit=async (values, {setErrors})=>{
                         placeholder="phone no"
                         :class="{'is-invalid':errors.phone}"
                     /><!--v-if-->
-                    <span class="text-danger" v-if="errors.phone">{{errors.phone}}</span>
+                    <span class="text-danger" >{{errors.phone}}</span>
                   </div>
                   <div class="form-group">
                     <Field
@@ -77,7 +77,7 @@ const onSubmit=async (values, {setErrors})=>{
                   } "
                   ></i></span
                   ><!--v-if-->
-                    <span class="text-danger" v-if="errors.password">{{errors.password}}</span>
+                    <span class="text-danger">{{errors.password}}</span>
                   </div>
                   <div class="form-check mb-3">
                     <input
