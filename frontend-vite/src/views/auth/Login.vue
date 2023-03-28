@@ -20,20 +20,10 @@ const toggleShow=()=>{
   showPassword.value=!showPassword.value;
 }
 const onSubmit=async (values, {setErrors})=>{
- const res = await auth.login(values)
-  if(res.data){
-   router.push({name:'index'});
-    ElNotification({
-      title: 'Success',
-      message: 'Login Success',
-      type: 'success',
-      position: 'top-left',
-    })
-  }else{
-    setErrors(res)
-  }
-  console.log(values)
-
+  console.log("res");
+  console.log(res);
+  console.log("000");
+ // resawait auth.login(values)
 }
 
 </script>

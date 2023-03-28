@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia'
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "@/services/axiosService.js";
+import {ElNotification} from "element-plus";
+import router from "@/router/index.js";
 
 export const useAuth = defineStore('auth', {
     state: () => ({
@@ -11,26 +14,44 @@ export const useAuth = defineStore('auth', {
     actions: {
         async login(fromData) {
             try {
-                const res=  await axios.post(import.meta.env.VITE_API_URL+"/api/v1/user/login",
-                    fromData
-                );
-                if(res.status === 200){
-                    console.log(res.data)
-                    this.user=res.data;
-                    return new Promise((resolve) =>{
-                      resolve(res.data )
-                    });
-                }
+                await axiosInstance.post("/user/login", fromData).then(response =>{
+                    this.user=response.data;
+                    ElNotification({
+                        title: 'Success',
+                        message: 'Login Success',
+                        type: 'success',
+                        position: 'top-left',
+                    })
+                    router.push({name:'index'});
+                }).catch(e =>{
+                    ElNotification({
+                        title: 'Success',
+                        message: e.response.data.errors.phone,
+                        type: 'success',
+                        position: 'top-left',
+                    })
+                });
             }catch (error){
-                if (error.response.data){
-                    // this.errors=error.response.data.errors;
-                    return new Promise((reject) =>{
-                        reject(error.response.data.errors )
-                    });
-                }
                 console.log(error)
             }
-        }
+        },
+    async logout(){
+            try {
+                const res=  await axiosInstance.post("/user/logout").then(response =>{
+                    this.user=[];
+                    ElNotification({
+                        title: 'Success',
+                        message: "Logout Success",
+                        type: 'success',
+                        position: 'top-left',
+                    })
+                    router.push({name:'index'});
+                });
+                console.log(res);
+            }catch (error){
+
+            }
 
     }
+    },
 })

@@ -1,5 +1,12 @@
 <script setup>
-  function search(){
+import {useAuth} from "@/stores/index.js";
+import {storeToRefs} from "pinia";
+const auth=useAuth();
+const {user}=storeToRefs(auth);
+const userLogout= async()=>{
+  await auth.logout();
+}
+function search(){
       $(".header-form").toggleClass("active"),
           $('.header-src').children(".fa-search").toggleClass("fa-times");
   }
@@ -55,12 +62,15 @@
           <div class="header-widget-group  hover-nav">
             <li class="nav-item dropdown ">
               <a class="nav-link header-widget" href="#" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end">
+              <ul class="dropdown-menu dropdown-menu-end" v-if="!user?.data">
                 <li><router-link :to="{name:'user.login'}" class="dropdown-item"> Login</router-link></li>
                 <li><router-link :to="{name:'user.register'}" class="dropdown-item"> Register</router-link></li>
+              </ul>
+              <ul class="dropdown-menu dropdown-menu-end" v-else>
                 <li><router-link :to="{name:'user.profile'}" class="dropdown-item"> My Profile</router-link></li>
                 <li><router-link :to="{name:'user.orders'}" class="dropdown-item"> My Orders</router-link></li>
                 <li><router-link :to="{name:'user.wishlist'}" class="dropdown-item"> My Wishlist</router-link></li>
+                <li><a href="#" class="dropdown-item" @click="userLogout"> Logout</a></li>
               </ul>
             </li>
 
