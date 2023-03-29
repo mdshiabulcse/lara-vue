@@ -20,10 +20,7 @@ const toggleShow=()=>{
   showPassword.value=!showPassword.value;
 }
 const onSubmit=async (values, {setErrors})=>{
-  console.log("res");
-  console.log(res);
-  console.log("000");
- // resawait auth.login(values)
+ await auth.login(values)
 }
 
 </script>
