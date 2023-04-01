@@ -45,7 +45,7 @@ export const useAuth = defineStore('auth', {
                         type: 'success',
                         position: 'top-left',
                     })
-                    router.push({name:'index'});
+                    router.push({name:'user.login'});
                 });
                 console.log(res);
             }catch (error){

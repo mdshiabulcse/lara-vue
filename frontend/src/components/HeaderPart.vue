@@ -1,10 +1,22 @@
 <script setup>
 import {useAuth} from "@/stores";
 import {storeToRefs} from "pinia";
+import {ElNotification} from "element-plus";
 const auth=useAuth();
 const {user}=storeToRefs(auth);
 const userLogout= async()=>{
   await auth.logout();
+
+
+  // if (res.data){
+  //   router.push({ name:'/' });
+  //   ElNotification({
+  //     title: 'Success',
+  //     message: 'Login Success',
+  //     type: 'success',
+  //     position: 'top-left',
+  //   })
+  // }
 }
 function search() {
   $(".header-form").toggleClass("active"),
@@ -68,7 +80,7 @@ function cartShow() {
           <div class="header-widget-group hover-nav">
             <li class="nav-item dropdown ">
               <a class="nav-link header-widget" href="#" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end" v-if="!user.data">
+              <ul class="dropdown-menu dropdown-menu-end" v-if="!user?.data">
                 <li>
                   <router-link :to="{name:'user.login'}" class="dropdown-item"> Login</router-link>
                 </li>
