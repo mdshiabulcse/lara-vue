@@ -53,5 +53,27 @@ export const useAuth = defineStore("auth", {
 
             }
         },
+        async register(formData) {
+            try {
+                const  res = await axiosInstance.post(
+                    "/user/register",
+                    formData
+                );
+                console.log(res.status)
+                if(res.status === 201){
+                    this.user= res.data;
+                    return new Promise((resolve)=>{
+                        resolve(res.data);
+                    })
+                }
+            }catch (error){
+                if (error.response.data){
+                    return new Promise((reject)=>{
+                        reject(error.response.data.errors);
+                    })
+                }
+
+            }
+        },
     },
 })

@@ -35,7 +35,7 @@ export const useAuth = defineStore('auth', {
                 console.log(error)
             }
         },
-    async logout(){
+        async logout(){
             try {
                 const res=  await axiosInstance.post("/user/logout").then(response =>{
                     this.user=[];
@@ -52,6 +52,7 @@ export const useAuth = defineStore('auth', {
 
             }
 
-    }
+    },
+
     },
 })
