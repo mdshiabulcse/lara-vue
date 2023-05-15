@@ -19,7 +19,8 @@ const toggleShow = () => {
 const onSubmit = async (values, {setErrors}) => {
     const res = await auth.register(values);
     if (res.data) {
-        router.push({name: '/'});
+        // router.push({name: '/'});
+        sendOtp.value=true;
         ElNotification({
             title: 'Success',
             message: 'Register Success',
@@ -41,7 +42,14 @@ const schema = yup.object({
     password_confirmation: yup.string().required('Password Confirmation is a required field')
         .oneOf([yup.ref("password"),null],"Password and Confirm Password must be match"),
 });
+// send otp
 
+const schemaOtpVerify = yup.object({
+    otp_code: yup.number().required("Input your otp code").min(6),
+   });
+
+const sendOtp=ref(false);
+const otpVerify=async(values)=>{};
 </script>
 <template>
     <div>
@@ -51,10 +59,13 @@ const schema = yup.object({
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-6">
                             <div class="user-form-card">
-                                <div class="user-form-title">
+                                <div class="user-form-title" v-if="sendOtp">
+                                    <h2>Verify Your Phone</h2>
+                                </div>
+                                <div class="user-form-title" v-else>
                                     <h2>Customer Register</h2>
                                 </div>
-                                <div class="user-form-group" id="axiosForm">
+                                <div class="user-form-group" v-if="!sendOtp">
                                     <Form class="user-form" @submit="onSubmit" :validation-schema="schema"
                                           v-slot="{errors, isSubmitting}">
                                         <!--v-if-->
@@ -127,6 +138,28 @@ const schema = yup.object({
                                         </div>
                                         <div class="form-button">
                                             <button type="submit" :disabled="isSubmitting">login<span
+                                                    v-show="isSubmitting"
+                                                    class="spinner-border spinner-border-sm mr-1"></span></button>
+                                        </div>
+                                    </Form>
+                                </div>
+                                <div class="user-form-group" v-else>
+                                    <Form class="user-form" @submit="otpVerify" :validation-schema="schemaOtpVerify"
+                                          v-slot="{errors, isSubmitting}">
+                                        <!--v-if-->
+                                        <div class="form-group">
+                                            <Field
+                                                    name="otp_code"
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="OTP"
+                                                    :class="{'is-invalid':errors.otp_code}"
+
+                                            /><!--v-if-->
+                                            <span class="text-danger">{{ errors.otp_code }}</span>
+                                        </div>
+                                        <div class="form-button">
+                                            <button type="submit" :disabled="isSubmitting">Verify<span
                                                     v-show="isSubmitting"
                                                     class="spinner-border spinner-border-sm mr-1"></span></button>
                                         </div>
