@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 //require_once '/path/to/vendor/autoload.php';
 
+use App\Http\Requests\User\OtpVerifyRequest;
 use Twilio\Rest\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginRequest;
@@ -16,6 +17,7 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function login(LoginRequest $request){
+        try{
         $user = User::where('phone', $request->phone)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
@@ -25,49 +27,64 @@ class AuthController extends Controller
         }
 
         return $this->makeToken($user);
+        }catch (\Exception $e){
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
     }
-    public function register(Request $request){
-//        $user=User::create($request->validated());
-        $sid = getenv("TWILIO_ACCOUNT_SID");
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $verificationSid = getenv("TWILIO_VERIFICATION_SID");
-        $twilio = new Client($sid, $token);
+    public function register(RegisterRequest $request){
 
-        $verification = $twilio->verify->v2->services($verificationSid)
-            ->verifications
-            ->create("+88".$request->phone, "sms");
+        try{
+            $user=User::create($request->validated());
 
-        return response()->json($verification->status);
+        $data=twilio_env();
+        $res=$data->verifications->create("+88".$request->phone, "sms");
+        return send_ms('OTP send success',$res->status,200);
+        }catch (\Exception $e){
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
 //        print($verification->status);
 //        return $this->makeToken($user);
     }
-    public function verifyOtp(Request $request){
-        $sid = getenv("TWILIO_ACCOUNT_SID");
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $verificationSid = getenv("TWILIO_VERIFICATION_SID");
-        $twilio = new Client($sid, $token);
+    public function verifyOtp(OtpVerifyRequest $request){
 
-        $verification_check = $twilio->verify->v2->services($verificationSid)
-            ->verificationChecks
-            ->create([
+        try {
+            $data=twilio_env();
+            $res=$data->verificationChecks->create([
                     "to" => "+88".$request->phone,
                     "code" => $request->otp_code,
                 ]
             );
-        return response()->json($verification_check->status);
+            if ($res->status === 'approved'){
+                $user = User::where('phone', $request->phone)->first();
+                $user->update(['isVerified' => 1]);
+                return $this->makeToken($user);
+            }
+        }catch (\Exception $e){
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
+
+//        return send_ms('OTP send success',$res->status,200);
 //        print($verification_check->status);
     }
     public  function makeToken($user){
+        try{
         $token= $user->createToken('user-token')->plainTextToken;
         return (new AuthResource($user))
             ->additional(['meta' => [
                 'token' => $token,
                 'token_type' => 'Bearer',
             ]]);
+        }catch (\Exception $e){
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
     }
     public function logout(Request $request){
+        try{
         $request->user()->tokens()->delete();
         return send_ms('User Logout',true,200);
+        }catch (\Exception $e){
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
 
     }
     public function user(Request $request){
