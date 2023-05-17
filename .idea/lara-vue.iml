@@ -6,6 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/backend/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/sanctum_auth/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/sanctum_auth/tests/Unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/backend/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/backend/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/http-factory" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/container" />
@@ -114,6 +118,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/nunomaduro/collision" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/phpunit/php-code-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/twilio/sdk" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

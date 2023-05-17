@@ -119,6 +119,7 @@
       <path value="$PROJECT_DIR$/backend/vendor/nunomaduro/collision" />
       <path value="$PROJECT_DIR$/backend/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/backend/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/backend/vendor/twilio/sdk" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0">
