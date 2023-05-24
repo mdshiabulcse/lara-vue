@@ -59,8 +59,27 @@ export const useAuth = defineStore("auth", {
                     "/user/register",
                     formData
                 );
-                console.log(res.status)
                 if(res.status === 201){
+                    return new Promise((resolve)=>{
+                        resolve(res.data);
+                    })
+                }
+            }catch (error){
+                if (error.response.data){
+                    return new Promise((reject)=>{
+                        reject(error.response.data.errors);
+                    })
+                }
+
+            }
+        },
+        async otpVerify(vData) {
+            try {
+                const  res = await axiosInstance.post(
+                    "/user/otp-verify",
+                    vData
+                );
+                if(res.status === 200){
                     this.user= res.data;
                     return new Promise((resolve)=>{
                         resolve(res.data);

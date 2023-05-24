@@ -1,10 +1,19 @@
 <script setup>
 import {useAuth} from "@/stores/auth.js";
-import { ref} from "vue";
+import {reactive, ref} from "vue";
 import {Field, Form} from 'vee-validate';
 import * as yup from 'yup';
 import {useRouter} from 'vue-router';
 import {ElNotification} from 'element-plus';
+
+const schema = yup.object({
+  name: yup.string().required(),
+  email: yup.string().required().email('Email Must be a valid Email!'),
+  phone: yup.string().required('Phone field is required'),
+  password: yup.string().required().min(8),
+  password_confirmation: yup.string().required('Password Confirmation is a required field')
+      .oneOf([yup.ref("password"),null],"Password and Confirm Password must be match"),
+});
 
 const auth = useAuth();
 
@@ -16,40 +25,51 @@ const toggleShow = () => {
     showPassword.value = !showPassword.value
 };
 
+
 const onSubmit = async (values, {setErrors}) => {
     const res = await auth.register(values);
-    if (res.data) {
-        // router.push({name: '/'});
+    // if (res.status) {
         sendOtp.value=true;
         ElNotification({
             title: 'Success',
-            message: 'Register Success',
+            message: 'OTP send success',
             type: 'success',
             position: 'top-left',
         })
-    } else {
-        setErrors(res);
-    }
+    // } else {
+    //     setErrors(res);
+    // }
 
 };
 
 
-const schema = yup.object({
-    name: yup.string().required(),
-    email: yup.string().required().email('Email Must be a valid Email!'),
-    phone: yup.string().required('Phone field is required'),
-    password: yup.string().required().min(8),
-    password_confirmation: yup.string().required('Password Confirmation is a required field')
-        .oneOf([yup.ref("password"),null],"Password and Confirm Password must be match"),
-});
-// send otp
 
+// send otp
+const sendOtp=ref(false);
+const verifyForm=reactive({
+  phone:'',
+  otp_code:''
+})
 const schemaOtpVerify = yup.object({
     otp_code: yup.number().required("Input your otp code").min(6),
    });
 
-const sendOtp=ref(false);
-const otpVerify=async(values)=>{};
+
+const otpVerify=async(values,{setErrors})=>{
+  const res = await auth.otpVerify(verifyForm);
+  if (res.data) {
+    router.push({name: '/'});
+    sendOtp.value=false;
+    ElNotification({
+      title: 'Success',
+      message: 'Register Success',
+      type: 'success',
+      position: 'top-left',
+    })
+  } else {
+    setErrors(res);
+  }
+};
 </script>
 <template>
     <div>
@@ -95,6 +115,7 @@ const otpVerify=async(values)=>{};
                                             <Field
                                                     name="phone"
                                                     type="text"
+                                                    v-model="verifyForm.phone"
                                                     class="form-control "
                                                     placeholder="phone no"
                                                     :class="{'is-invalid':errors.phone}"/>
@@ -151,6 +172,7 @@ const otpVerify=async(values)=>{};
                                             <Field
                                                     name="otp_code"
                                                     type="text"
+                                                    v-model="verifyForm.otp_code"
                                                     class="form-control"
                                                     placeholder="OTP"
                                                     :class="{'is-invalid':errors.otp_code}"

@@ -54,9 +54,10 @@ class AuthController extends Controller
                     "code" => $request->otp_code,
                 ]
             );
-            if ($res->status === 'approved'){
+            if ($res->status == 'approved'){
                 $user = User::where('phone', $request->phone)->first();
-                $user->update(['isVerified' => 1]);
+                $user->isVerified = 1;
+                $user->save();
                 return $this->makeToken($user);
             }
         }catch (\Exception $e){
