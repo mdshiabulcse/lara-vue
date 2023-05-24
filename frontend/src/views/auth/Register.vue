@@ -28,7 +28,11 @@ const toggleShow = () => {
 
 const onSubmit = async (values, {setErrors}) => {
     const res = await auth.register(values);
-    // if (res.status) {
+
+  console.log("res.status");
+  console.log(res.status);
+  console.log("res.status");
+    if (res.status) {
         sendOtp.value=true;
         ElNotification({
             title: 'Success',
@@ -36,9 +40,9 @@ const onSubmit = async (values, {setErrors}) => {
             type: 'success',
             position: 'top-left',
         })
-    // } else {
-    //     setErrors(res);
-    // }
+    } else {
+        setErrors(res);
+    }
 
 };
 

@@ -59,7 +59,7 @@ export const useAuth = defineStore("auth", {
                     "/user/register",
                     formData
                 );
-                if(res.status === 201){
+                if(res.status === 200){
                     return new Promise((resolve)=>{
                         resolve(res.data);
                     })
