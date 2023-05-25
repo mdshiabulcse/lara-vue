@@ -17,19 +17,15 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function login(LoginRequest $request){
-        try{
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::VerifiedUser()->where('phone', $request->phone)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'phone' => ['The provided credentials are incorrect.'],
             ]);
         }
-
         return $this->makeToken($user);
-        }catch (\Exception $e){
-            return send_ms($e->getMessage(),false,$e->getCode());
-        }
+
     }
     public function register(RegisterRequest $request){
 
