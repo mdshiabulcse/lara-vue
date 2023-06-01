@@ -33,7 +33,7 @@ class AuthController extends Controller
             $user=User::create($request->validated());
 
         $data=twilio_env();
-        $res=$data->verifications->create("+88".$request->phone, "sms");
+        $res=$data->verifications->create("+88".$user->phone, "sms");
         return send_ms('OTP send success',$res->status,200);
         }catch (\Exception $e){
             return send_ms($e->getMessage(),false,$e->getCode());
@@ -60,8 +60,21 @@ class AuthController extends Controller
             return send_ms($e->getMessage(),false,$e->getCode());
         }
 
+
 //        return send_ms('OTP send success',$res->status,200);
 //        print($verification_check->status);
+    }
+    public function otpResend(Request $request){
+        try{
+            $user=User::where('phone', $request->phone)->first();
+
+            $data=twilio_env();
+            $res=$data->verifications->create("+88".$user->phone, "sms");
+            return send_ms('OTP send success',$res->status,200);
+        }catch (\Exception $e){
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
+
     }
     public  function makeToken($user){
         try{

@@ -8,6 +8,7 @@ Route::controller(AuthController::class)->group(function (){
     Route::post('/login','login');
     Route::post('/register','register');
     Route::post('/otp-verify','verifyOtp');
+    Route::post('/otp-resend','otpResend');
 
 });
 Route::middleware('auth:user-api')->group(function () {

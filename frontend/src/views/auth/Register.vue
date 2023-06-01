@@ -1,6 +1,6 @@
 <script setup>
-import {useAuth} from "@/stores/auth.js";
-import {reactive, ref} from "vue";
+import {useAuth, useNotification} from "@/stores";
+import {onMounted, reactive, ref} from "vue";
 import {Field, Form} from 'vee-validate';
 import * as yup from 'yup';
 import {useRouter} from 'vue-router';
@@ -16,7 +16,7 @@ const schema = yup.object({
 });
 
 const auth = useAuth();
-
+const notify =useNotification();
 
 const router = useRouter();
 const showPassword = ref(false);
@@ -28,18 +28,10 @@ const toggleShow = () => {
 
 const onSubmit = async (values, {setErrors}) => {
     const res = await auth.register(values);
-
-  console.log("res.status");
-  console.log(res.status);
-  console.log("res.status");
     if (res.status) {
         sendOtp.value=true;
-        ElNotification({
-            title: 'Success',
-            message: 'OTP send success',
-            type: 'success',
-            position: 'top-left',
-        })
+      setTime(5)
+      notify.Success('^ digit verification code send success')
     } else {
         setErrors(res);
     }
@@ -49,8 +41,8 @@ const onSubmit = async (values, {setErrors}) => {
 
 
 // send otp
-const sendOtp=ref(false);
-const verifyForm=reactive({
+const sendOtp= ref (false);
+const verifyForm = reactive({
   phone:'',
   otp_code:''
 })
@@ -64,14 +56,62 @@ const otpVerify=async(values,{setErrors})=>{
   if (res.data) {
     router.push({name: '/'});
     sendOtp.value=false;
-    ElNotification({
-      title: 'Success',
-      message: 'Register Success',
-      type: 'success',
-      position: 'top-left',
-    })
+    notify.Success('Register success')
   } else {
     setErrors(res);
+  }
+};
+
+// startt count down
+
+
+const timeLeft= ref('00:00');
+var intervalTimer;
+
+function setTime(seconds) {
+  clearInterval(intervalTimer);
+  timer(seconds);
+}
+  function timer(seconds) {
+  const now = Date.now();
+  const end = now + seconds * 1000;
+  displayTimeLeft(seconds);
+
+  countdown(end);
+}
+function countdown(end) {
+  intervalTimer = setInterval(() => {
+    const secondsLeft = Math.round((end - Date.now()) / 1000);
+    if(secondsLeft < 0) {
+      clearInterval(intervalTimer);
+      return;
+    }
+    displayTimeLeft(secondsLeft)
+  }, 1000);
+}
+function displayTimeLeft(secondsLeft) {
+  const minutes = Math.floor((secondsLeft % 3600) / 60);
+  const seconds = secondsLeft % 60;
+
+  timeLeft.value = `${zeroPadded(minutes)}:${zeroPadded(seconds)}`;
+}
+
+
+function zeroPadded(num) {
+  return num < 10 ? `0${num}` : num;
+}
+
+// onMounted(()=>{
+//   setTime(10)
+// })
+
+
+// resend otp code
+const resendOtp =async ()=>{
+  const res = await auth.resendOtp(verifyForm.phone);
+  if (res.status) {
+    setTime(10)
+    notify.Success('OTP Resend success')
   }
 };
 </script>
@@ -85,9 +125,11 @@ const otpVerify=async(values,{setErrors})=>{
                             <div class="user-form-card">
                                 <div class="user-form-title" v-if="sendOtp">
                                     <h2>Verify Your Phone</h2>
+
                                 </div>
                                 <div class="user-form-title" v-else>
                                     <h2>Customer Register</h2>
+
                                 </div>
                                 <div class="user-form-group" v-if="!sendOtp">
                                     <Form class="user-form" @submit="onSubmit" :validation-schema="schema"
@@ -184,6 +226,9 @@ const otpVerify=async(values,{setErrors})=>{
                                             /><!--v-if-->
                                             <span class="text-danger">{{ errors.otp_code }}</span>
                                         </div>
+                                      <a href="javascript::void(0)" class="text-success otp_cs" v-if="timeLeft === '00:00'" @click="resendOtp"> Resend OTP</a>
+                                      <a href="javascript::void(0)" class="text-success otp_cs" v-else>{{ timeLeft }}</a>
+
                                         <div class="form-button">
                                             <button type="submit" :disabled="isSubmitting">Verify<span
                                                     v-show="isSubmitting"
@@ -211,4 +256,7 @@ const otpVerify=async(values,{setErrors})=>{
 </template>
 <style>
 @import "@/assets/css/user-auth.css";
+.otp_cs{
+  float: right;
+}
 </style>

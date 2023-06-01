@@ -1,5 +1,5 @@
 <script setup>
-import {useAuth} from "@/stores/auth.js";
+import {useAuth,useNotification} from "@/stores";
 import {ref} from "vue";
 import {Field, Form} from 'vee-validate';
 import * as yup from 'yup';
@@ -13,16 +13,12 @@ const showPassword = ref(false);
 const toggleShow = () => {
     showPassword.value = !showPassword.value
 };
+const notify=useNotification();
 const onSubmit = async (values, {setErrors}) => {
     const res = await auth.login(values);
     if (res.data) {
         router.push({name: '/'});
-        ElNotification({
-            title: 'Success',
-            message: 'Login Success',
-            type: 'success',
-            position: 'top-left',
-        })
+        notify.Success("Login Success")
     } else {
         setErrors(res);
     }
