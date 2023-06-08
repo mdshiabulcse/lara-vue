@@ -31,7 +31,7 @@ const onSubmit = async (values, {setErrors}) => {
     if (res.status) {
         sendOtp.value=true;
       setTime(5)
-      notify.Success('^ digit verification code send success')
+      notify.Success('6 digit verification code send success')
     } else {
         setErrors(res);
     }
