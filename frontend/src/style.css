@@ -7,3 +7,16 @@
 @import "@/assets/vendor/bootstrap/bootstrap.min.css" ;
 @import "@/assets/css/main.css" ;
 @import "@/assets/css/home-category.css" ;
+
+/*package css*/
+@import 'element-plus/dist/index.css';
+@import 'nprogress/nprogress.css';
+#nprogress .bar{
+    background: #ffffff !important;
+    padding: 0 10px !important;
+    height: 6px !important;
+}
+#nprogress .spiner .spiner-icon{
+    border-top-color: #ffffff !important;
+    border-left-color: #ffffff !important;
+}
