@@ -8,7 +8,7 @@
 @import "@/assets/css/main.css" ;
 @import "@/assets/css/home-category.css" ;
 
-/*package css*/
+/*=======packages css=======*/
 @import 'element-plus/dist/index.css';
 @import 'nprogress/nprogress.css';
 #nprogress .bar{
